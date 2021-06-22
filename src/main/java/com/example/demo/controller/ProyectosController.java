@@ -44,7 +44,7 @@ public class ProyectosController {
                 return new ResponseEntity(responseMap, HttpStatus.OK);
             } else {
                 responseMap.put("estado", "error");
-                responseMap.put("msg", "no se encontró el usuario con id: " + id);
+                responseMap.put("msg", "no se encontró el proyecto con id: " + id);
                 return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
             }
         } catch (NumberFormatException ex) {
@@ -98,7 +98,7 @@ public class ProyectosController {
                 return new ResponseEntity(responseMap, HttpStatus.OK);
             } else {
                 responseMap.put("estado", "error");
-                responseMap.put("msg", "no se encontró el usuario con id: " + id);
+                responseMap.put("msg", "no se encontró el proyecto con id: " + id);
                 return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
             }
         } catch (NumberFormatException ex) {
