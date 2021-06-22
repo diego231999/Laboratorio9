@@ -51,4 +51,28 @@ public class ActividadController {
         return new ResponseEntity(responseMap, HttpStatus.CREATED);
 
     }
+
+
+    @DeleteMapping(value = "/actividad/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity borrarActividad(@PathVariable("id") String idStr) {
+
+        HashMap<String, Object> responseMap = new HashMap<>();
+
+        try {
+            int id = Integer.parseInt(idStr);
+            if (actividadRepository.existsById(id)) {
+                actividadRepository.deleteById(id);
+                responseMap.put("estado", "borrado exitoso");
+                return new ResponseEntity(responseMap, HttpStatus.OK);
+            } else {
+                responseMap.put("estado", "error");
+                responseMap.put("msg", "no se encontró la actividad con id: " + id);
+                return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
+            }
+        } catch (NumberFormatException ex) {
+            responseMap.put("estado", "error");
+            responseMap.put("msg", "El ID debe ser un número");
+            return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
