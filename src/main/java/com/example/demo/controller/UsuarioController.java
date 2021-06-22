@@ -33,12 +33,12 @@ public class UsuarioController {
     UsuarioRepository usuarioRepository;
 
     @GetMapping(value = "/usuario",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity listarProductos(){
+    public ResponseEntity listarUsuarios(){
         return new ResponseEntity(usuarioRepository.findAll(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity guardarProducto(
+    public ResponseEntity guardarUsuario(
             @RequestBody Usuario usuario,
             @RequestParam(value = "fetchCorreo", required = false) boolean fetchCorreo) {
 
@@ -54,7 +54,7 @@ public class UsuarioController {
     }
 
     @PutMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity actualizarProducto(@RequestBody Usuario usuario) {
+    public ResponseEntity actualizarUsuario(@RequestBody Usuario usuario) {
 
         HashMap<String, Object> responseMap = new HashMap<>();
 
@@ -78,7 +78,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping(value = "/usuario/{correo}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity borrarProducto(@PathVariable("correo") String correo) {
+    public ResponseEntity borrarUsuario(@PathVariable("correo") String correo) {
 
         HashMap<String, Object> responseMap = new HashMap<>();
 
