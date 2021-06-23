@@ -9,33 +9,33 @@ public class Actividad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idactividad")
-    private int idactividad;
+    private Integer idactividad;
 
     @Column(name = "nombreactividad")
     private String nombreactividad;
 
     private String descripcion;
-    private int idproyecto;
+    private Integer idproyecto;
 
     @Column(name = "usuario_owner")
     private String usuarioOwner;
     private Float peso;
-    private int estado;
+    private Integer estado;
 
-    public int getIdactividad() {
+    public Integer getIdactividad() {
         return idactividad;
     }
 
-    public void setIdactividad(int idactividad) {
+    public void setIdactividad(Integer idactividad) {
         this.idactividad = idactividad;
     }
 
-    public String getNombreActividad() {
+    public String getNombreactividad() {
         return nombreactividad;
     }
 
-    public void setNombreActividad(String nombreActividad) {
-        this.nombreactividad = nombreActividad;
+    public void setNombreactividad(String nombreactividad) {
+        this.nombreactividad = nombreactividad;
     }
 
     public String getDescripcion() {
@@ -46,11 +46,11 @@ public class Actividad {
         this.descripcion = descripcion;
     }
 
-    public int getIdproyecto() {
+    public Integer getIdproyecto() {
         return idproyecto;
     }
 
-    public void setIdproyecto(int idproyecto) {
+    public void setIdproyecto(Integer idproyecto) {
         this.idproyecto = idproyecto;
     }
 
@@ -70,11 +70,11 @@ public class Actividad {
         this.peso = peso;
     }
 
-    public int getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
 }

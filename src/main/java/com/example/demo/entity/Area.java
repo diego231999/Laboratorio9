@@ -9,16 +9,16 @@ public class Area {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idarea;
+    private Integer idarea;
 
     @Column(name="nombrearea")
     private String nombrearea;
 
-    public int getIdarea() {
+    public Integer getIdarea() {
         return idarea;
     }
 
-    public void setIdarea(int idarea) {
+    public void setIdarea(Integer idarea) {
         this.idarea = idarea;
     }
 
