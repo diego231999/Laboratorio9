@@ -20,5 +20,7 @@ public class UsuarioController {
     public ResponseEntity listarProductos(){
         return new ResponseEntity(usuarioRepository.findAll(), HttpStatus.OK);
     }
+
+
 }
 
