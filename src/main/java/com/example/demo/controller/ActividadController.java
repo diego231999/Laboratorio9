@@ -17,6 +17,9 @@ import java.util.Optional;
 @CrossOrigin
 public class ActividadController {
 
+    @Autowired
+    ActividadRepository actividadRepository;
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity gestionExcepcion(HttpServletRequest request) {
 
@@ -27,9 +30,6 @@ public class ActividadController {
         }
         return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
     }
-
-    @Autowired
-    ActividadRepository actividadRepository;
 
     @GetMapping(value = "/actividad",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity listarActividades(){
@@ -56,48 +56,47 @@ public class ActividadController {
     public ResponseEntity editarActividad(@RequestBody Actividad actividad){
         HashMap<String, Object> responseMap = new HashMap<>();
 
-        if(actividad.getIdproyecto() != null){
+        if(actividad.getIdproyecto() != null && actividad.getIdproyecto() > 0){
 
-        }else{
-            responseMap.put("estado","error");
-            responseMap.put("msg","El id de la actividad no puede ser ");
-            return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
-        }
+            Optional<Actividad> actividadOpt = actividadRepository.findById(actividad.getIdactividad());
 
-        Optional<Actividad> actividadOpt = actividadRepository.findById(actividad.getIdactividad());
+            if(actividadOpt.isPresent()){
+                Actividad actividadVal = actividadOpt.get();
 
-        if(actividadOpt.isPresent()){
-            Actividad actividadVal = actividadOpt.get();
+                if(actividad.getNombreactividad() != null){
+                    actividadVal.setNombreactividad(actividad.getNombreactividad());
+                }
+                if(actividad.getEstado() != null){
+                    actividadVal.setEstado(actividad.getEstado());
+                }
+                if(actividad.getDescripcion() != null){
+                    actividadVal.setDescripcion(actividad.getDescripcion());
+                }
+                if(actividad.getPeso() != null){
+                    actividadVal.setPeso(actividad.getPeso());
+                }
+                if(actividad.getUsuarioOwner() != null){
+                    actividadVal.setUsuarioOwner(actividad.getUsuarioOwner());
+                    responseMap.put("msg","El id del dueño no puede ser nulo");
+                    return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
+                }
+                if(actividad.getIdproyecto() != null){
+                    actividadVal.setIdproyecto(actividad.getIdproyecto());
+                    responseMap.put("msg","El id del proyecto no puede ser nulo");
+                    return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
+                }
 
-            if(actividadVal.getNombreactividad() != null){
-                actividadVal.setNombreactividad(actividad.getNombreactividad());
-            }
-            if(actividadVal.getEstado() != null){
-                actividadVal.setEstado(actividad.getEstado());
-            }
-            if(actividadVal.getDescripcion() != null){
-                actividadVal.setDescripcion(actividad.getDescripcion());
-            }
-            if(actividadVal.getPeso() != null){
-                actividadVal.setPeso(actividad.getPeso());
-            }
-            if(actividadVal.getUsuarioOwner() != null){
-                actividadVal.setUsuarioOwner(actividad.getUsuarioOwner());
-                responseMap.put("msg","El id del dueño no puede ser nulo");
+                actividadRepository.save(actividadVal);
+                responseMap.put("estado",actividadVal.getNombreactividad()+" Actualizado");
+                return new ResponseEntity(responseMap, HttpStatus.OK);
+            }else{
+                responseMap.put("estado","error");
+                responseMap.put("msg","La actividad no existe");
                 return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
             }
-            if(actividadVal.getIdproyecto() != null){
-                actividadVal.setIdproyecto(actividad.getIdproyecto());
-                responseMap.put("msg","El id del proyecto no puede ser nulo");
-                return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
-            }
-
-            actividadRepository.save(actividadVal);
-            responseMap.put("estado",actividadVal.getNombreactividad()+" Actualizado");
-            return new ResponseEntity(responseMap, HttpStatus.OK);
         }else{
             responseMap.put("estado","error");
-            responseMap.put("msg","La actividad no existe");
+            responseMap.put("msg","El id de la actividad debe ser uno válido");
             return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
         }
     }
