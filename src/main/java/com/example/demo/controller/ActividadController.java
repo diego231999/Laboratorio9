@@ -63,24 +63,24 @@ public class ActividadController {
             if(actividadOpt.isPresent()){
                 Actividad actividadVal = actividadOpt.get();
 
-                if(actividad.getNombreactividad() != null){
+                if(actividad.getNombreactividad() != null && !actividadVal.getIdproyecto().equals(actividad.getNombreactividad())){
                     actividadVal.setNombreactividad(actividad.getNombreactividad());
                 }
-                if(actividad.getEstado() != null){
+                if(actividad.getEstado() != null && !actividadVal.getEstado().equals(actividad.getEstado())){
                     actividadVal.setEstado(actividad.getEstado());
                 }
-                if(actividad.getDescripcion() != null){
+                if(actividad.getDescripcion() != null && !actividadVal.getDescripcion().equals(actividad.getDescripcion())){
                     actividadVal.setDescripcion(actividad.getDescripcion());
                 }
-                if(actividad.getPeso() != null){
+                if(actividad.getPeso() != null && !actividadVal.getPeso().equals(actividad.getPeso())){
                     actividadVal.setPeso(actividad.getPeso());
                 }
-                if(actividad.getUsuarioOwner() != null){
+                if(actividad.getUsuarioOwner() != null && !actividadVal.getUsuarioOwner().equals(actividad.getUsuarioOwner())){
                     actividadVal.setUsuarioOwner(actividad.getUsuarioOwner());
                     responseMap.put("msg","El id del dueño no puede ser nulo");
                     return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
                 }
-                if(actividad.getIdproyecto() != null){
+                if(actividad.getIdproyecto() != null && !actividadVal.getIdproyecto().equals(actividad.getIdproyecto())){
                     actividadVal.setIdproyecto(actividad.getIdproyecto());
                     responseMap.put("msg","El id del proyecto no puede ser nulo");
                     return new ResponseEntity(responseMap, HttpStatus.BAD_REQUEST);
